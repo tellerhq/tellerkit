@@ -1,0 +1,190 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target x86_64-apple-macos13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TellerKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AppKit
+import Foundation
+import Swift
+import SwiftUI
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+extension SwiftUI.View {
+  public func tellerConnect(isPresented: SwiftUI.Binding<Swift.Bool>, config: TellerKit.Teller.Config) -> some SwiftUI.View
+  
+}
+extension TellerKit.Teller {
+  @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class WindowManager : AppKit.NSViewController {
+    @objc deinit
+  }
+}
+extension AppKit.NSWindow {
+  @_Concurrency.MainActor(unsafe) public func positionCenter()
+}
+public typealias PlatformViewController = AppKit.NSViewController
+public enum Teller {
+  public struct Account : Swift.Decodable {
+    public var id: Swift.String
+    public var currency: Swift.String
+    public var enrollmentId: Swift.String
+    public var institution: TellerKit.Teller.Institution
+    public var lastFour: Swift.String
+    public var type: Swift.String
+    public var subtype: Swift.String
+    public var status: TellerKit.Teller.Account.Status
+    public enum CodingKeys : Swift.String, Swift.CodingKey {
+      case id, currency, institution, type, subtype, status
+      case enrollmentId
+      case lastFour
+      public init?(rawValue: Swift.String)
+      public init?(stringValue: Swift.String)
+      public init?(intValue: Swift.Int)
+      public typealias RawValue = Swift.String
+      public var intValue: Swift.Int? {
+        get
+      }
+      public var rawValue: Swift.String {
+        get
+      }
+      public var stringValue: Swift.String {
+        get
+      }
+    }
+    public enum Status : Swift.String, Swift.Decodable {
+      case open
+      case closed
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public struct Balance : Swift.Decodable {
+      public var available: Foundation.Decimal
+      public var current: Foundation.Decimal
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Transaction : Swift.Decodable {
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Authorization : Swift.Decodable {
+    public var accessToken: Swift.String
+    public var enrollment: TellerKit.Teller.Enrollment
+    public var signatures: [Swift.String]
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Enrollment : Swift.Decodable {
+    public var id: Swift.String
+    public var institution: TellerKit.Teller.Institution
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Institution : Swift.Decodable {
+    public var name: Swift.String
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Payment : Swift.Decodable {
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Error : Swift.Decodable {
+    public var type: Swift.String
+    public var code: Swift.String
+    public var message: Swift.String
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Event : Swift.Decodable {
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Config {
+    public enum Environment : Swift.String {
+      case development
+      case sandbox
+      case production
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum SelectAccount : Swift.String {
+      case disabled
+      case single
+      case multiple
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum Products : Swift.String {
+      case verify
+      case balance
+      case transactions
+      case identity
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum Completion {
+      case ready
+      case exit
+      case event(TellerKit.Teller.Event)
+      case enrollment(TellerKit.Teller.Authorization)
+      case payment(TellerKit.Teller.Payment)
+      case failure(TellerKit.Teller.Error)
+    }
+    public var appId: Swift.String
+    public var skipPicker: Swift.Bool
+    public var institution: Swift.String?
+    public var enrollmentId: Swift.String?
+    public var environment: TellerKit.Teller.Config.Environment
+    public var selectAccount: TellerKit.Teller.Config.SelectAccount
+    public var products: [TellerKit.Teller.Config.Products]
+    public var connectToken: Swift.String?
+    public var nonce: Swift.String?
+    public var completion: ((TellerKit.Teller.Config.Completion) -> Swift.Void)
+    public init(appId: Swift.String, skipPicker: Swift.Bool = false, institution: Swift.String? = nil, enrollmentId: Swift.String? = nil, environment: TellerKit.Teller.Config.Environment, selectAccount: TellerKit.Teller.Config.SelectAccount = .disabled, products: [TellerKit.Teller.Config.Products], connectToken: Swift.String? = nil, nonce: Swift.String? = nil, completion: @escaping (TellerKit.Teller.Config.Completion) -> Swift.Void)
+  }
+}
+extension TellerKit.Teller {
+  @objc @_Concurrency.MainActor(unsafe) public class ViewController : TellerKit.PlatformViewController, WebKit.WKNavigationDelegate, WebKit.WKScriptMessageHandler {
+    @_Concurrency.MainActor(unsafe) public init(configuration: TellerKit.Teller.Config)
+    @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+    @_Concurrency.MainActor(unsafe) @objc override dynamic public func encode(with coder: Foundation.NSCoder)
+    @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+    @_Concurrency.MainActor(unsafe) public func viewWillAppear(_ animated: Swift.Bool)
+    @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLayout()
+    @_Concurrency.MainActor(unsafe) @objc public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+    @objc deinit
+  }
+}
+extension TellerKit.Teller {
+  public struct Sheet {
+  }
+}
+extension TellerKit.Teller.Sheet : SwiftUI.NSViewControllerRepresentable {
+  @_Concurrency.MainActor(unsafe) public func makeNSViewController(context: TellerKit.Teller.Sheet.Context) -> TellerKit.Teller.WindowManager
+  @_Concurrency.MainActor(unsafe) public func updateNSViewController(_ nsViewController: TellerKit.Teller.WindowManager, context: TellerKit.Teller.Sheet.Context)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = Swift.Void
+  public typealias NSViewControllerType = TellerKit.Teller.WindowManager
+}
+extension TellerKit.Teller.Account.CodingKeys : Swift.Equatable {}
+extension TellerKit.Teller.Account.CodingKeys : Swift.Hashable {}
+extension TellerKit.Teller.Account.CodingKeys : Swift.RawRepresentable {}
+extension TellerKit.Teller.Account.Status : Swift.Equatable {}
+extension TellerKit.Teller.Account.Status : Swift.Hashable {}
+extension TellerKit.Teller.Account.Status : Swift.RawRepresentable {}
+extension TellerKit.Teller.Config.Environment : Swift.Equatable {}
+extension TellerKit.Teller.Config.Environment : Swift.Hashable {}
+extension TellerKit.Teller.Config.Environment : Swift.RawRepresentable {}
+extension TellerKit.Teller.Config.SelectAccount : Swift.Equatable {}
+extension TellerKit.Teller.Config.SelectAccount : Swift.Hashable {}
+extension TellerKit.Teller.Config.SelectAccount : Swift.RawRepresentable {}
+extension TellerKit.Teller.Config.Products : Swift.Equatable {}
+extension TellerKit.Teller.Config.Products : Swift.Hashable {}
+extension TellerKit.Teller.Config.Products : Swift.RawRepresentable {}
