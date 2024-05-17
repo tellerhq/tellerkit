@@ -15,7 +15,7 @@ A view modifier `tellerConnect` is provided that will modally present Teller Con
 
 #### Example
 
-```SWIFTUI
+```swift
 import SwiftUI
 import TellerKit
 
